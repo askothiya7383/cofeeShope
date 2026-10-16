@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Little Coffee Shop</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="CSS/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-box">
+        <h1 class="logo">My Little Coffee Shop</h1>
+
+        <button id="menuBtn" class="menu-btn" aria-label="Open navigation menu">
+          ☰
+        </button>
+
+        <ul id="navLinks" class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="hero-text">
+          <h2>Your Daily Cup of Happiness</h2>
+          <p>
+            Welcome to My Little Coffee Shop. We make fresh coffee and tasty
+            snacks every day with love.
+          </p>
+
+          <a href="#menu" class="btn">View Our Menu</a>
+        </div>
+        <div class="hero-img">
+          <img
+            src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600"
+            alt="A cup of hot coffee on a table"
+          />
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>
+          We are a small family coffee shop in the town. We started in 2015 with
+          one coffee machine and a big dream. Now we serve hot coffee, cold
+          coffee, muffins, and croissants. Come and enjoy a quiet place with
+          your friends.
+        </p>
+      </section>
+
+      <section id="menu" class="menu-section">
+        <h2>Our Menu</h2>
+        <p class="center-text">Pick your favourite coffee or snack.</p>
+
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-type="all">All</button>
+          <button class="filter-btn" data-type="coffee">Coffee</button>
+          <button class="filter-btn" data-type="snacks">Snacks</button>
+        </div>
+
+        <div id="menuGrid" class="menu-grid"></div>
+      </section>
+
+      <section class="carousel-section">
+        <h2>Our Shop Photos</h2>
+
+        <div class="carousel-box" id="carouselBox">
+          <div class="carousel-view">
+            <div class="carousel-track" id="carouselTrack"></div>
+          </div>
+
+          <div class="carousel-buttons">
+            <button id="prevBtn" class="btn-small">Previous</button>
+            <button id="nextBtn" class="btn-small">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="gallery-section">
+        <h2>Gallery</h2>
+        <p class="center-text">Click any photo to see it bigger.</p>
+
+        <div class="gallery-grid" id="galleryGrid"></div>
+
+        <div id="lightbox" class="lightbox">
+          <span id="closeBtn" class="close-btn">&times;</span>
+          <button
+            id="lightPrev"
+            class="light-arrow left-arrow"
+            aria-label="Previous photo"
+          >
+            &#10094;
+          </button>
+          <img id="lightboxImg" src="" alt="Large gallery photo" />
+          <button
+            id="lightNext"
+            class="light-arrow right-arrow"
+            aria-label="Next photo"
+          >
+            &#10095;
+          </button>
+        </div>
+      </section>
+
+      <section class="review-section">
+        <h2>What Our Guests Say</h2>
+        <p class="center-text">Real reviews from our happy customers.</p>
+
+        <div class="review-box" id="reviewBox">
+          <div class="review-view">
+            <div class="review-track" id="reviewTrack"></div>
+          </div>
+
+          <div class="carousel-buttons">
+            <button id="reviewPrev" class="btn-small">Previous</button>
+            <button id="reviewNext" class="btn-small">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+
+        <details>
+          <summary>What are your opening hours?</summary>
+          <p>
+            We are open Monday to Saturday, from 8am to 8pm. Sunday is closed.
+          </p>
+        </details>
+
+        <details>
+          <summary>Do you have free Wi-Fi?</summary>
+          <p>Yes, we have free Wi-Fi for all customers.</p>
+        </details>
+
+        <details>
+          <summary>Can I order for takeaway?</summary>
+          <p>Yes, you can call us or visit the shop for takeaway orders.</p>
+        </details>
+      </section>
+
+      <div class="location-contact">
+        <section class="location-section">
+          <h2>Find Us Here</h2>
+          <p class="center-text">605 Luxruia Business Hub, Surat</p>
+
+          <iframe
+            class="map-iframe"
+            title="Coffee shop location map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.1277912242604!2d72.75733507602204!3d21.147312083694736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d8d96d2b733%3A0x1a5232e28e4094e4!2sEnactOn%20Technologies%20Private%20Limited!5e0!3m2!1sen!2sin!4v1785387079084!5m2!1sen!2sin"
+            width="100%"
+            height="300"
+            style="border: 0"
+            loading="lazy"
+          >
+          </iframe>
+        </section>
+
+        <section id="contact" class="contact-section">
+          <h2>Contact Us</h2>
+          <p class="center-text">Send us a message and we will reply soon.</p>
+
+          <form id="contactForm">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your name"
+              required
+            />
+
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+
+            <label for="message">Message:</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="Write your message..."
+              required
+            ></textarea>
+
+            <button type="submit" class="btn">Submit</button>
+          </form>
+
+          <p id="successMsg" class="success-msg">
+            Thank you! Your message has been sent.
+          </p>
+        </section>
+      </div>
+
+      <div id="orderPopup" class="order-popup"></div>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 My Little Coffee Shop. All rights reserved.</p>
+    </footer>
+
+    <script src="Javascript/script.js"></script>
+  </body>
+</html>

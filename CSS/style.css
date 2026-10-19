@@ -122,14 +122,17 @@ h2 {
 
 
 
+
 .hero {
-  max-width: 900px;
+  max-width: 1100px;
+  max-height: 600px;
   margin: 0 auto;
-  padding: 30px 16px;
+  margin-top: 20px;
+  padding: 50px 20px;
   display: flex;
-  gap: 20px;
+  gap: 20px 1px;
   align-items: center;
-  background-color: var(--white);
+  background-color: var(--beige);
 }
 
 .hero-text {
@@ -138,16 +141,51 @@ h2 {
 
 .hero-text h2 {
   text-align: left;
-  font-size: 32px;
+  font-size: 44px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+}
+
+.hero-text p {
+  line-height: 1.7;
+  margin: 0 0 24px 0;
+  max-width: 420px;
+}
+
+/* Two buttons in one line */
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .hero-img {
-  flex: 1;
+  flex: 1.5;
 }
 
+/* Arch shaped photo like the design */
 .hero-img img {
   width: 100%;
-  border-radius: 8px;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 250px 250px 16px 16px;
+  display: block;
+}
+
+/* Outlined second button */
+.btn-outline {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--brown);
+  border: 2px solid var(--brown);
+  padding: 10px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: var(--beige);
 }
 
 
@@ -253,7 +291,7 @@ h2 {
   margin: 0;
 }
 
-/* Price and Buy button in one line */
+
 .price-row {
   display: flex;
   justify-content: space-between;
@@ -265,7 +303,7 @@ h2 {
   padding: 6px 16px;
 }
 
-/* Order popup at right bottom, hidden first */
+
 .order-popup {
   display: none;
   position: fixed;
@@ -279,7 +317,7 @@ h2 {
   z-index: 200;
 }
 
-/* JavaScript adds .show to display popup */
+
 .order-popup.show {
   display: block;
 }
@@ -429,7 +467,7 @@ h2 {
 .faq-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.4s ease;
 }
 
 .faq-content p {
@@ -585,10 +623,24 @@ gap: 20px;
   .hero {
     flex-direction: column;
     text-align: center;
+    padding: 40px 20px;
   }
 
   .hero-text h2 {
     text-align: center;
+    font-size: 34px;
+  }
+
+  .hero-text p {
+    max-width: 100%;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-img img {
+    height: 380px;
   }
 }
 
@@ -621,6 +673,15 @@ gap: 20px;
 
   .carousel-track img {
     height: 220px;
+  }
+
+  .hero-text h2 {
+    font-size: 28px;
+  }
+
+  .hero-img img {
+    height: 300px;
+    border-radius: 150px 150px 8px 8px;
   }
 }
 

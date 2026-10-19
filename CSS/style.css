@@ -14,7 +14,7 @@
   --green: green;
 }
 
-/* Smooth scrolling when clicking nav links */
+
 html {
   scroll-behavior: smooth;
 }
@@ -26,7 +26,7 @@ body {
   margin: 0;
 }
 
-/* Gap so sticky navbar does not hide section headings */
+
 section {
   scroll-margin-top: 70px;
 }

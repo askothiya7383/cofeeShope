@@ -92,6 +92,34 @@ h2 {
   cursor: pointer;
 }
 
+.order-modal {
+  display: none;
+  position: fixed; inset: 0;
+  background-color: var(--black-faded);
+  justify-content: center; align-items: center;
+  z-index: 300;           
+}
+.order-modal.show { display: flex; }
+
+.order-modal-box {
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 20px;
+  width: 320px;        
+  max-width: 90%;      
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+}
+
+.order-modal-box img {
+  width: 100%;
+  height: 160px;       
+  object-fit: cover;   
+  border-radius: 6px;
+  display: block;
+}
+
 
 
 .hero {

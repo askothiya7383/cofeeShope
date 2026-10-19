@@ -81,9 +81,11 @@ function showMenu(type) {
       "</p>" +
       '<button class="btn buy-btn" data-name="' +
       item.name +
-      '">' +
-      "Buy" +
-      "</button>" +
+      '" data-image="' +
+      item.image +
+      '" data-price="' +
+      item.price +
+      '">Order</button>' +
       "</div>" +
       "</article>"
     );
@@ -94,20 +96,49 @@ function showMenu(type) {
 
 showMenu("all");
 
+let orderModal = document.getElementById("orderModal");
+let orderImage = document.getElementById("orderImage");
+let orderName = document.getElementById("orderName");
+let orderPrice = document.getElementById("orderPrice");
+let orderConfirmBtn = document.getElementById("orderConfirmBtn");
 let orderPopup = document.getElementById("orderPopup");
 let popupTimer = null;
+let currentOrderName = "";   
+ 
 
 menuGrid.addEventListener("click", function (event) {
   if (event.target.classList.contains("buy-btn")) {
-    let itemName = event.target.getAttribute("data-name");
-    orderPopup.textContent =
-      itemName + " ordered! Your order is placed. Thank you!";
-    orderPopup.classList.add("show");
+    orderImage.src = event.target.getAttribute("data-image");
+    orderName.textContent = event.target.getAttribute("data-name");
+    orderPrice.textContent = event.target.getAttribute("data-price");
+    currentOrderName = event.target.getAttribute("data-name"); // save for step 2
+    orderModal.classList.add("show");
+  }
+});
 
-    clearTimeout(popupTimer);
-    popupTimer = setTimeout(function () {
-      orderPopup.classList.remove("show");
-    }, 2500);
+
+orderConfirmBtn.addEventListener("click", function () {
+  orderModal.classList.remove("show");
+
+  orderPopup.textContent =
+    currentOrderName + " ordered! Your order is placed. Thank you!";
+  orderPopup.classList.add("show");
+
+  clearTimeout(popupTimer);
+  popupTimer = setTimeout(function () {
+    orderPopup.classList.remove("show");
+  }, 2500);
+});
+
+let orderCloseBtn = document.getElementById("orderCloseBtn");
+
+orderCloseBtn.addEventListener("click", function () {
+  orderModal.classList.remove("show");
+});
+
+orderModal.addEventListener("click", function (event) {
+  if (event.target === orderModal) {
+    orderModal.classList.remove("show");
   }
 });
 

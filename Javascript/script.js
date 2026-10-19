@@ -434,3 +434,41 @@ contactForm.addEventListener("submit", function (event) {
   successMsg.style.display = "block";
   contactForm.reset();
 });
+
+
+// let faqItems = document.querySelectorAll(".faq-section details");
+
+// faqItems.forEach(function (oneFaq) {
+//   oneFaq.addEventListener("toggle", function () {
+   
+//     if (oneFaq.open) {
+//       faqItems.forEach(function (otherFaq) {
+        
+//         if (otherFaq !== oneFaq) {
+//           otherFaq.open = false;
+//         }
+//       });
+//     }
+//   });
+// });
+
+const faqItems = document.querySelectorAll(".faq-item");
+
+faqItems.forEach(function (item) {
+  const header = item.querySelector(".faq-header");
+  const content = item.querySelector(".faq-content");
+
+  header.addEventListener("click", function () {
+    const isOpen = item.classList.contains("active");
+
+    faqItems.forEach(function (el) {
+      el.classList.remove("active");
+      el.querySelector(".faq-content").style.maxHeight = null;
+    });
+
+    if (!isOpen) {
+      item.classList.add("active");
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+});

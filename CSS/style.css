@@ -152,7 +152,6 @@ h2 {
   max-width: 420px;
 }
 
-/* Two buttons in one line */
 .hero-buttons {
   display: flex;
   gap: 12px;
@@ -163,7 +162,6 @@ h2 {
   flex: 1.5;
 }
 
-/* Arch shaped photo like the design */
 .hero-img img {
   width: 100%;
   height: 500px;
@@ -172,7 +170,7 @@ h2 {
   display: block;
 }
 
-/* Outlined second button */
+
 .btn-outline {
   display: inline-block;
   background-color: transparent;

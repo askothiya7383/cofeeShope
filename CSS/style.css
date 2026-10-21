@@ -338,8 +338,8 @@ h2 {
 }
 
 .carousel-track img {
-  min-width: 100%;
-  width: 100%;
+  min-width: 50%;
+  width: 50%;
   height: 350px;
   object-fit: cover;
   border-radius: 8px;
@@ -360,7 +360,7 @@ h2 {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3,1fr);
   gap: 12px;
 }
 
@@ -643,6 +643,7 @@ gap: 20px;
 }
 
 
+
 @media (max-width: 500px) {
   .menu-grid,
   .gallery-grid {
@@ -669,9 +670,12 @@ gap: 20px;
     flex-wrap: wrap;
   }
 
-  .carousel-track img {
-    height: 220px;
-  }
+.carousel-track img {
+  flex: 0 0 50%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
   .hero-text h2 {
     font-size: 28px;

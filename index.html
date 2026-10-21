@@ -204,3 +204,91 @@
 </body>
 
 </html>
+
+
+<!--
+
+function makeSlider(options) {
+  let track = document.getElementById(options.trackId);
+  let box = document.getElementById(options.boxId);
+  let prevBtn = document.getElementById(options.prevId);
+  let nextBtn = document.getElementById(options.nextId);
+  let items = options.items;
+  let visibleNow = options.visible();
+  let current = 0;
+  let busy = false;
+
+  function updateButtons() {
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= items.length - visibleNow;
+  }
+
+  function build() {
+    visibleNow = options.visible();
+    let realHtml = items.map(options.makeCard);
+    track.innerHTML = realHtml.join("");
+
+    current = 0;
+    track.style.transition = "none";
+    track.style.transform =
+      "translateX(-" + current * (100 / visibleNow) + "%)";
+    updateButtons();
+  }
+
+  function move() {
+    track.style.transition = "transform 0.5s ease";
+    track.style.transform =
+      "translateX(-" + current * (100 / visibleNow) + "%)";
+  }
+
+  function next() {
+    if (busy || current >= items.length - visibleNow) {
+      return;
+    }
+    busy = true;
+    current = current + 1;
+    move();
+    updateButtons();
+    setTimeout(function () {
+      busy = false;
+    }, 500);
+  }
+
+  function prev() {
+    if (busy || current === 0) {
+      return;
+    }
+    busy = true;
+    current = current - 1;
+    move();
+    updateButtons();
+    setTimeout(function () {
+      busy = false;
+    }, 500);
+  }
+
+  nextBtn.addEventListener("click", next);
+  prevBtn.addEventListener("click", prev);
+
+  let auto = setInterval(next, options.speed);
+  box.addEventListener("mouseenter", function () {
+    clearInterval(auto);
+  });
+  box.addEventListener("mouseleave", function () {
+    clearInterval(auto);
+    auto = setInterval(next, options.speed);
+  });
+
+  window.addEventListener("resize", function () {
+    if (options.visible() !== visibleNow) {
+      build();
+    } else {
+      track.style.transition = "none";
+      track.style.transform =
+        "translateX(-" + current * (100 / visibleNow) + "%)";
+    }
+  });
+
+  build();
+}
+-->

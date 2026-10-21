@@ -63,7 +63,7 @@ function showMenu(type) {
 
   let cards = filteredItems.map(function (item) {
     return (
-      '<article class="menu-card">' +
+      '<div class="menu-card">' +
       '<img src="' +
       item.image +
       '" alt="' +
@@ -87,7 +87,7 @@ function showMenu(type) {
       item.price +
       '">Order</button>' +
       "</div>" +
-      "</article>"
+      "</div>"
     );
   });
 
@@ -154,11 +154,106 @@ filterButtons.forEach(function (button) {
   });
 });
 
-let photos = [
-  "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800",
-  "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800",
-  "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800",
-];
+
+// function makeSlider(options) {
+//   let track = document.getElementById(options.trackId);
+//   let box = document.getElementById(options.boxId);
+//   let prevBtn = document.getElementById(options.prevId);
+//   let nextBtn = document.getElementById(options.nextId);
+//   let items = options.items;
+//   let visibleNow = options.visible();
+//   let current = visibleNow;
+//   let busy = false;
+
+  // function build() {
+  //   visibleNow = options.visible();
+  //   let realHtml = items.map(options.makeCard);
+  //   let startClones = items.slice(-visibleNow).map(options.makeCard);
+  //   let endClones = items.slice(0, visibleNow).map(options.makeCard);
+  //   track.innerHTML =
+  //     startClones.join("") + realHtml.join("") + endClones.join("");
+
+  //   current = visibleNow;
+  //   track.style.transition = "none";
+  //   track.style.transform =
+  //     "translateX(-" + current * (100 / visibleNow) + "%)";
+  // }
+
+//   function move() {
+//     track.style.transition = "transform 0.5s ease";
+//     track.style.transform =
+//       "translateX(-" + current * (100 / visibleNow) + "%)";
+//   }
+
+//   function next() {
+//     if (busy) {
+//       return;
+//     }
+//     busy = true;
+//     current = current + 1;
+//     move();
+//     if (current === items.length + visibleNow) {
+//       setTimeout(function () {
+//         track.style.transition = "none";
+//         current = visibleNow;
+//         track.style.transform =
+//           "translateX(-" + current * (100 / visibleNow) + "%)";
+//         busy = false;
+//       }, 500);
+//     } else {
+//       setTimeout(function () {
+//         busy = false;
+//       }, 500);
+//     }
+//   }
+
+//   function prev() {
+//     if (busy) {
+//       return;
+//     }
+//     busy = true;
+//     current = current - 1;
+//     move();
+//     if (current < visibleNow) {
+//       setTimeout(function () {
+//         track.style.transition = "none";
+//         current = current + items.length;
+//         track.style.transform =
+//           "translateX(-" + current * (100 / visibleNow) + "%)";
+//         busy = false;
+//       }, 500);
+//     } else {
+//       setTimeout(function () {
+//         busy = false;
+//       }, 500);
+//     }
+//   }
+
+//   nextBtn.addEventListener("click", next);
+//   prevBtn.addEventListener("click", prev);
+
+//   let auto = setInterval(next, options.speed);
+//   box.addEventListener("mouseenter", function () {
+//     clearInterval(auto);
+//   });
+//   box.addEventListener("mouseleave", function () {
+//     clearInterval(auto);
+//     auto = setInterval(next, options.speed);
+//   });
+
+//   window.addEventListener("resize", function () {
+//     if (options.visible() !== visibleNow) {
+//       build();
+//     } else {
+//       track.style.transition = "none";
+//       track.style.transform =
+//         "translateX(-" + current * (100 / visibleNow) + "%)";
+//     }
+//   });
+
+//   build();
+// }
+
 
 function makeSlider(options) {
   let track = document.getElementById(options.trackId);
@@ -167,21 +262,19 @@ function makeSlider(options) {
   let nextBtn = document.getElementById(options.nextId);
   let items = options.items;
   let visibleNow = options.visible();
-  let current = visibleNow;
+  let current = 0;
   let busy = false;
 
   function build() {
     visibleNow = options.visible();
     let realHtml = items.map(options.makeCard);
-    let startClones = items.slice(-visibleNow).map(options.makeCard);
-    let endClones = items.slice(0, visibleNow).map(options.makeCard);
-    track.innerHTML =
-      startClones.join("") + realHtml.join("") + endClones.join("");
+    track.innerHTML = realHtml.join("");
 
-    current = visibleNow;
+    current = 0;
     track.style.transition = "none";
     track.style.transform =
       "translateX(-" + current * (100 / visibleNow) + "%)";
+    updateButtons();
   }
 
   function move() {
@@ -190,57 +283,63 @@ function makeSlider(options) {
       "translateX(-" + current * (100 / visibleNow) + "%)";
   }
 
+  function updateButtons() {
+    if(current == 0){
+      prevBtn.disabled = true;
+      
+    }
+    else{
+      prevBtn.disabled = false;
+    }
+    
+
+    if(current >= items.length - visibleNow){
+      nextBtn.disabled = true;
+      
+    }
+    else{
+      nextBtn.disabled = false;
+    }
+    
+  }
+  
+  
   function next() {
-    if (busy) {
+    if (busy || current >= items.length - visibleNow) {
       return;
     }
     busy = true;
     current = current + 1;
     move();
-    if (current === items.length + visibleNow) {
-      setTimeout(function () {
-        track.style.transition = "none";
-        current = visibleNow;
-        track.style.transform =
-          "translateX(-" + current * (100 / visibleNow) + "%)";
-        busy = false;
-      }, 500);
-    } else {
-      setTimeout(function () {
-        busy = false;
-      }, 500);
-    }
+    updateButtons();
+    setTimeout(function () {
+      busy = false;
+    }, 500);
   }
 
   function prev() {
-    if (busy) {
+    if (busy || current === 0) {
       return;
     }
     busy = true;
     current = current - 1;
     move();
-    if (current < visibleNow) {
-      setTimeout(function () {
-        track.style.transition = "none";
-        current = current + items.length;
-        track.style.transform =
-          "translateX(-" + current * (100 / visibleNow) + "%)";
-        busy = false;
-      }, 500);
-    } else {
-      setTimeout(function () {
-        busy = false;
-      }, 500);
-    }
+    updateButtons();
+    setTimeout(function () {
+      busy = false;
+    }, 500);
   }
 
   nextBtn.addEventListener("click", next);
   prevBtn.addEventListener("click", prev);
 
+
   let auto = setInterval(next, options.speed);
+  
   box.addEventListener("mouseenter", function () {
     clearInterval(auto);
   });
+
   box.addEventListener("mouseleave", function () {
     clearInterval(auto);
     auto = setInterval(next, options.speed);
@@ -259,6 +358,11 @@ function makeSlider(options) {
   build();
 }
 
+let photos = [
+  "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800",
+  "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800",
+  "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800",
+];
 makeSlider({
   trackId: "carouselTrack",
   boxId: "carouselBox",
@@ -267,7 +371,7 @@ makeSlider({
   items: photos,
   speed: 3000,
   visible: function () {
-    return 1;
+    return 2;
   },
   makeCard: function (link) {
     return '<img src="' + link + '" alt="Coffee shop photo">';

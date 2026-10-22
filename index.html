@@ -1,26 +1,17 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Little Coffee Shop</title>
-
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link rel="stylesheet" href="CSS/style.css" />
 </head>
-
 <body>
   <header class="site-header">
     <nav class="nav-box">
       <h1 class="logo">My Little Coffee Shop</h1>
-
-      <button id="menuBtn" class="menu-btn" aria-label="Open navigation menu">
-        ☰
-      </button>
-
+      <button id="menuBtn" class="menu-btn" aria-label="Open navigation menu">☰</button>
       <ul id="navLinks" class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#menu">Menu</a></li>
@@ -35,38 +26,32 @@
     <section id="home" class="hero">
       <div class="hero-text">
         <h2>Where Every Cup<br>Tells a Story</h2>
-        <p>
-          Single-origin, small-batch roasting. We bring the world's finest
-          botanical notes directly to your morning ritual.
-        </p>
+        <p>Single-origin, small-batch roasting. We bring the world's finest botanical notes directly to your morning ritual.</p>
         <div class="hero-buttons">
           <a href="#menu" class="btn">Explore Our Beans</a>
           <a href="#contact" class="btn-outline">Visit Us</a>
         </div>
       </div>
       <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800"
-          alt="A cup of hot coffee on a table" />
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800" alt="A cup of hot coffee on a table" />
       </div>
     </section>
 
     <section id="menu" class="menu-section">
       <h2>Our Menu</h2>
       <p class="center-text">Pick your favourite coffee or snack.</p>
-
       <div class="filter-buttons">
         <button class="filter-btn active" data-type="all">All</button>
         <button class="filter-btn" data-type="coffee">Coffee</button>
         <button class="filter-btn" data-type="snacks">Snacks</button>
       </div>
-
       <div id="menuGrid" class="menu-grid"></div>
     </section>
 
     <div id="orderModal" class="order-modal">
       <div class="order-modal-box">
         <span id="orderCloseBtn" class="close-btn">&times;</span>
-        <img id="orderImage" src="" alt="Order item">
+        <img id="orderImage" src="" alt="Order item" />
         <h3 id="orderName"></h3>
         <p id="orderPrice" class="price"></p>
         <button id="orderConfirmBtn" class="btn">Place Order</button>
@@ -75,15 +60,26 @@
 
     <section class="carousel-section">
       <h2>Our Shop Photos</h2>
-
-      <div class="carousel-box" id="carouselBox">
+      <div class="carousel-box" data-visible="2">
         <div class="carousel-view">
-          <div class="carousel-track" id="carouselTrack"></div>
+          <div class="carousel-track"></div>
         </div>
-
         <div class="carousel-buttons">
-          <button id="prevBtn" class="btn-small">Previous</button>
-          <button id="nextBtn" class="btn-small">Next</button>
+          <button class="btn-small carousel-prev">Previous</button>
+          <button class="btn-small carousel-next">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="carousel-section">
+      <h2>Our Coffee Collection</h2>
+      <div class="carousel-box" data-visible="2">
+        <div class="carousel-view">
+          <div class="carousel-track"></div>
+        </div>
+        <div class="carousel-buttons">
+          <button class="btn-small carousel-prev">Previous</button>
+          <button class="btn-small carousel-next">Next</button>
         </div>
       </div>
     </section>
@@ -91,30 +87,22 @@
     <section id="gallery" class="gallery-section">
       <h2>Gallery</h2>
       <p class="center-text">Click any photo to see it bigger.</p>
-
       <div class="gallery-grid" id="galleryGrid"></div>
-
       <div id="lightbox" class="lightbox">
         <span id="closeBtn" class="close-btn">&times;</span>
-        <button id="lightPrev" class="light-arrow left-arrow" aria-label="Previous photo">
-          &#10094;
-        </button>
+        <button id="lightPrev" class="light-arrow left-arrow" aria-label="Previous photo">&#10094;</button>
         <img id="lightboxImg" src="" alt="Large gallery photo" />
-        <button id="lightNext" class="light-arrow right-arrow" aria-label="Next photo">
-          &#10095;
-        </button>
+        <button id="lightNext" class="light-arrow right-arrow" aria-label="Next photo">&#10095;</button>
       </div>
     </section>
 
     <section class="review-section">
       <h2>What Our Guests Say</h2>
       <p class="center-text">Real reviews from our happy customers.</p>
-
       <div class="review-box" id="reviewBox">
         <div class="review-view">
           <div class="review-track" id="reviewTrack"></div>
         </div>
-
         <div class="carousel-buttons">
           <button id="reviewPrev" class="btn-small">Previous</button>
           <button id="reviewNext" class="btn-small">Next</button>
@@ -122,75 +110,48 @@
       </div>
     </section>
 
-   <section class="faq-section">
-  <h2>Frequently Asked Questions</h2>
-
-  <div class="faq-item">
-    <button class="faq-header" type="button">
-      What are your opening hours?
-    </button>
-    <div class="faq-content">
-      <p>We are open Monday to Saturday, from 8am to 8pm. Sunday is closed.</p>
-    </div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-header" type="button">Do you have free Wi-Fi?</button>
-    <div class="faq-content">
-      <p>Yes, we have free Wi-Fi for all customers.</p>
-    </div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-header" type="button">Can I order for takeaway?</button>
-    <div class="faq-content">
-      <p>Yes, you can call us or visit the shop for takeaway orders.</p>
-    </div>
-  </div>
-</section>
-
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <button class="faq-header" type="button">What are your opening hours?</button>
+        <div class="faq-content"><p>We are open Monday to Saturday, from 8am to 8pm. Sunday is closed.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-header" type="button">Do you have free Wi-Fi?</button>
+        <div class="faq-content"><p>Yes, we have free Wi-Fi for all customers.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-header" type="button">Can I order for takeaway?</button>
+        <div class="faq-content"><p>Yes, you can call us or visit the shop for takeaway orders.</p></div>
+      </div>
+    </section>
 
     <div class="location-contact">
       <section class="location-section">
         <h2>Find Us Here</h2>
         <p class="center-text">605 Luxruia Business Hub, Surat</p>
-
-        <iframe class="map-iframe" title="Coffee shop location map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.1277912242604!2d72.75733507602204!3d21.147312083694736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d8d96d2b733%3A0x1a5232e28e4094e4!2sEnactOn%20Technologies%20Private%20Limited!5e0!3m2!1sen!2sin!4v1785387079084!5m2!1sen!2sin"
-          width="100%" height="300" style="border: 0" loading="lazy">
-        </iframe>
+        <iframe class="map-iframe" title="Coffee shop location map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.1277912242604!2d72.75733507602204!3d21.147312083694736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d8d96d2b733%3A0x1a5232e28e4094e4!2sEnactOn%20Technologies%20Private%20Limited!5e0!3m2!1sen!2sin!4v1785387079084!5m2!1sen!2sin" width="100%" height="300" style="border: 0" loading="lazy"></iframe>
       </section>
 
       <section id="contact" class="contact-section">
         <h2>Contact Us</h2>
         <p class="center-text">Send us a message and we will reply soon.</p>
-
         <form id="contactForm">
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" placeholder="Your name" required />
-
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" placeholder="you@example.com" required />
-
           <label for="message">Message:</label>
           <textarea id="message" name="message" rows="4" placeholder="Write your message..." required></textarea>
-
           <button type="submit" class="btn">Submit</button>
         </form>
-
-        <p id="successMsg" class="success-msg">
-          Thank you! Your message has been sent.
-        </p>
+        <p id="successMsg" class="success-msg">Thank you! Your message has been sent.</p>
       </section>
     </div>
+
     <section id="about" class="about">
       <h2>About Us</h2>
-      <p>
-        We are a small family coffee shop in the town. We started in 2015 with
-        one coffee machine and a big dream. Now we serve hot coffee, cold
-        coffee, muffins, and croissants. Come and enjoy a quiet place with
-        your friends.
-      </p>
+      <p>We are a small family coffee shop in the town. We started in 2015 with one coffee machine and a big dream. Now we serve hot coffee, cold coffee, muffins, and croissants. Come and enjoy a quiet place with your friends.</p>
     </section>
 
     <div id="orderPopup" class="order-popup"></div>
@@ -202,93 +163,104 @@
 
   <script src="Javascript/script.js"></script>
 </body>
-
 </html>
 
 
-<!--
+<!-- // function makeSlider(options) {
+//   let track = document.getElementById(options.trackId);
+//   let box = document.getElementById(options.boxId);
+//   let prevBtn = document.getElementById(options.prevId);
+//   let nextBtn = document.getElementById(options.nextId);
+//   let items = options.items;
+//   let visibleNow = options.visible();
+//   let current = visibleNow;
+//   let busy = false;
 
-function makeSlider(options) {
-  let track = document.getElementById(options.trackId);
-  let box = document.getElementById(options.boxId);
-  let prevBtn = document.getElementById(options.prevId);
-  let nextBtn = document.getElementById(options.nextId);
-  let items = options.items;
-  let visibleNow = options.visible();
-  let current = 0;
-  let busy = false;
+// function build() {
+//   visibleNow = options.visible();
+//   let realHtml = items.map(options.makeCard);
+//   let startClones = items.slice(-visibleNow).map(options.makeCard);
+//   let endClones = items.slice(0, visibleNow).map(options.makeCard);
+//   track.innerHTML =
+//     startClones.join("") + realHtml.join("") + endClones.join("");
 
-  function updateButtons() {
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current >= items.length - visibleNow;
-  }
+//   current = visibleNow;
+//   track.style.transition = "none";
+//   track.style.transform =
+//     "translateX(-" + current * (100 / visibleNow) + "%)";
+// }
 
-  function build() {
-    visibleNow = options.visible();
-    let realHtml = items.map(options.makeCard);
-    track.innerHTML = realHtml.join("");
+//   function move() {
+//     track.style.transition = "transform 0.5s ease";
+//     track.style.transform =
+//       "translateX(-" + current * (100 / visibleNow) + "%)";
+//   }
 
-    current = 0;
-    track.style.transition = "none";
-    track.style.transform =
-      "translateX(-" + current * (100 / visibleNow) + "%)";
-    updateButtons();
-  }
+//   function next() {
+//     if (busy) {
+//       return;
+//     }
+//     busy = true;
+//     current = current + 1;
+//     move();
+//     if (current === items.length + visibleNow) {
+//       setTimeout(function () {
+//         track.style.transition = "none";
+//         current = visibleNow;
+//         track.style.transform =
+//           "translateX(-" + current * (100 / visibleNow) + "%)";
+//         busy = false;
+//       }, 500);
+//     } else {
+//       setTimeout(function () {
+//         busy = false;
+//       }, 500);
+//     }
+//   }
 
-  function move() {
-    track.style.transition = "transform 0.5s ease";
-    track.style.transform =
-      "translateX(-" + current * (100 / visibleNow) + "%)";
-  }
+//   function prev() {
+//     if (busy) {
+//       return;
+//     }
+//     busy = true;
+//     current = current - 1;
+//     move();
+//     if (current < visibleNow) {
+//       setTimeout(function () {
+//         track.style.transition = "none";
+//         current = current + items.length;
+//         track.style.transform =
+//           "translateX(-" + current * (100 / visibleNow) + "%)";
+//         busy = false;
+//       }, 500);
+//     } else {
+//       setTimeout(function () {
+//         busy = false;
+//       }, 500);
+//     }
+//   }
 
-  function next() {
-    if (busy || current >= items.length - visibleNow) {
-      return;
-    }
-    busy = true;
-    current = current + 1;
-    move();
-    updateButtons();
-    setTimeout(function () {
-      busy = false;
-    }, 500);
-  }
+//   nextBtn.addEventListener("click", next);
+//   prevBtn.addEventListener("click", prev);
 
-  function prev() {
-    if (busy || current === 0) {
-      return;
-    }
-    busy = true;
-    current = current - 1;
-    move();
-    updateButtons();
-    setTimeout(function () {
-      busy = false;
-    }, 500);
-  }
+//   let auto = setInterval(next, options.speed);
+//   box.addEventListener("mouseenter", function () {
+//     clearInterval(auto);
+//   });
+//   box.addEventListener("mouseleave", function () {
+//     clearInterval(auto);
+//     auto = setInterval(next, options.speed);
+//   });
 
-  nextBtn.addEventListener("click", next);
-  prevBtn.addEventListener("click", prev);
+//   window.addEventListener("resize", function () {
+//     if (options.visible() !== visibleNow) {
+//       build();
+//     } else {
+//       track.style.transition = "none";
+//       track.style.transform =
+//         "translateX(-" + current * (100 / visibleNow) + "%)";
+//     }
+//   });
 
-  let auto = setInterval(next, options.speed);
-  box.addEventListener("mouseenter", function () {
-    clearInterval(auto);
-  });
-  box.addEventListener("mouseleave", function () {
-    clearInterval(auto);
-    auto = setInterval(next, options.speed);
-  });
-
-  window.addEventListener("resize", function () {
-    if (options.visible() !== visibleNow) {
-      build();
-    } else {
-      track.style.transition = "none";
-      track.style.transform =
-        "translateX(-" + current * (100 / visibleNow) + "%)";
-    }
-  });
-
-  build();
-}
--->
+//   build();
+// } -->

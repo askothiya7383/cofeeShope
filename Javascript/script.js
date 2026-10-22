@@ -103,19 +103,17 @@ let orderPrice = document.getElementById("orderPrice");
 let orderConfirmBtn = document.getElementById("orderConfirmBtn");
 let orderPopup = document.getElementById("orderPopup");
 let popupTimer = null;
-let currentOrderName = "";   
- 
+let currentOrderName = "";
 
 menuGrid.addEventListener("click", function (event) {
   if (event.target.classList.contains("buy-btn")) {
     orderImage.src = event.target.getAttribute("data-image");
     orderName.textContent = event.target.getAttribute("data-name");
     orderPrice.textContent = event.target.getAttribute("data-price");
-    currentOrderName = event.target.getAttribute("data-name"); // save for step 2
+    currentOrderName = event.target.getAttribute("data-name");
     orderModal.classList.add("show");
   }
 });
-
 
 orderConfirmBtn.addEventListener("click", function () {
   orderModal.classList.remove("show");
@@ -154,228 +152,143 @@ filterButtons.forEach(function (button) {
   });
 });
 
-
-// function makeSlider(options) {
-//   let track = document.getElementById(options.trackId);
-//   let box = document.getElementById(options.boxId);
-//   let prevBtn = document.getElementById(options.prevId);
-//   let nextBtn = document.getElementById(options.nextId);
-//   let items = options.items;
-//   let visibleNow = options.visible();
-//   let current = visibleNow;
-//   let busy = false;
-
-  // function build() {
-  //   visibleNow = options.visible();
-  //   let realHtml = items.map(options.makeCard);
-  //   let startClones = items.slice(-visibleNow).map(options.makeCard);
-  //   let endClones = items.slice(0, visibleNow).map(options.makeCard);
-  //   track.innerHTML =
-  //     startClones.join("") + realHtml.join("") + endClones.join("");
-
-  //   current = visibleNow;
-  //   track.style.transition = "none";
-  //   track.style.transform =
-  //     "translateX(-" + current * (100 / visibleNow) + "%)";
-  // }
-
-//   function move() {
-//     track.style.transition = "transform 0.5s ease";
-//     track.style.transform =
-//       "translateX(-" + current * (100 / visibleNow) + "%)";
-//   }
-
-//   function next() {
-//     if (busy) {
-//       return;
-//     }
-//     busy = true;
-//     current = current + 1;
-//     move();
-//     if (current === items.length + visibleNow) {
-//       setTimeout(function () {
-//         track.style.transition = "none";
-//         current = visibleNow;
-//         track.style.transform =
-//           "translateX(-" + current * (100 / visibleNow) + "%)";
-//         busy = false;
-//       }, 500);
-//     } else {
-//       setTimeout(function () {
-//         busy = false;
-//       }, 500);
-//     }
-//   }
-
-//   function prev() {
-//     if (busy) {
-//       return;
-//     }
-//     busy = true;
-//     current = current - 1;
-//     move();
-//     if (current < visibleNow) {
-//       setTimeout(function () {
-//         track.style.transition = "none";
-//         current = current + items.length;
-//         track.style.transform =
-//           "translateX(-" + current * (100 / visibleNow) + "%)";
-//         busy = false;
-//       }, 500);
-//     } else {
-//       setTimeout(function () {
-//         busy = false;
-//       }, 500);
-//     }
-//   }
-
-//   nextBtn.addEventListener("click", next);
-//   prevBtn.addEventListener("click", prev);
-
-//   let auto = setInterval(next, options.speed);
-//   box.addEventListener("mouseenter", function () {
-//     clearInterval(auto);
-//   });
-//   box.addEventListener("mouseleave", function () {
-//     clearInterval(auto);
-//     auto = setInterval(next, options.speed);
-//   });
-
-//   window.addEventListener("resize", function () {
-//     if (options.visible() !== visibleNow) {
-//       build();
-//     } else {
-//       track.style.transition = "none";
-//       track.style.transform =
-//         "translateX(-" + current * (100 / visibleNow) + "%)";
-//     }
-//   });
-
-//   build();
-// }
-
-
 function makeSlider(options) {
-  let track = document.getElementById(options.trackId);
-  let box = document.getElementById(options.boxId);
-  let prevBtn = document.getElementById(options.prevId);
-  let nextBtn = document.getElementById(options.nextId);
+  let box = options.box;
+  let track = box.querySelector(options.trackSelector);
+  let prevBtn = box.querySelector(options.prevSelector);
+  let nextBtn = box.querySelector(options.nextSelector);
   let items = options.items;
-  let visibleNow = options.visible();
   let current = 0;
   let busy = false;
+  let timer;
+  let visibleNow = options.visible();
 
   function build() {
-    visibleNow = options.visible();
-    let realHtml = items.map(options.makeCard);
-    track.innerHTML = realHtml.join("");
+    visibleNow = Math.min(options.visible(), items.length);
+    track.innerHTML = items.map(options.makeCard).join("");
+
+    let view = box.querySelector(options.viewSelector);
+    let gap = parseFloat(getComputedStyle(track).gap) || 0;
+    let itemWidth = (view.clientWidth - gap * (visibleNow - 1)) / visibleNow;
+
+    Array.from(track.children).forEach(function (item) {
+      item.style.flex = "0 0 " + itemWidth + "px";
+    });
 
     current = 0;
     track.style.transition = "none";
-    track.style.transform =
-      "translateX(-" + current * (100 / visibleNow) + "%)";
+    move();
     updateButtons();
   }
 
   function move() {
-    track.style.transition = "transform 0.5s ease";
-    track.style.transform =
-      "translateX(-" + current * (100 / visibleNow) + "%)";
+    let gap = parseFloat(getComputedStyle(track).gap) || 0;
+    let firstItem = track.children[0];
+    let itemWidth = firstItem ? firstItem.offsetWidth : 0;
+
+    track.style.transform = "translateX(-" + current * (itemWidth + gap) + "px)";
   }
 
   function updateButtons() {
-    if(current == 0){
-      prevBtn.disabled = true;
-      
-    }
-    else{
-      prevBtn.disabled = false;
-    }
-    
-
-    if(current >= items.length - visibleNow){
-      nextBtn.disabled = true;
-      
-    }
-    else{
-      nextBtn.disabled = false;
-    }
-    
+    let max = Math.max(0, items.length - visibleNow);
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= max;
+    prevBtn.style.opacity = prevBtn.disabled ? 0.5 : 1;
+    nextBtn.style.opacity = nextBtn.disabled ? 0.5 : 1;
   }
-  
-  
+
   function next() {
-    if (busy || current >= items.length - visibleNow) {
-      return;
-    }
+    let max = Math.max(0, items.length - visibleNow);
+    if (busy || current >= max) return;
+
     busy = true;
     current = current + 1;
+    track.style.transition = "transform 0.5s ease";
     move();
     updateButtons();
+
     setTimeout(function () {
       busy = false;
     }, 500);
   }
 
   function prev() {
-    if (busy || current === 0) {
-      return;
-    }
+    if (busy || current === 0) return;
+
     busy = true;
     current = current - 1;
+    track.style.transition = "transform 0.5s ease";
     move();
     updateButtons();
+
     setTimeout(function () {
       busy = false;
     }, 500);
   }
 
+  function startAutoSlide() {
+    clearInterval(timer);
+    timer = setInterval(function () {
+      let max = Math.max(0, items.length - visibleNow);
+      if (current >= max) {
+        current = 0;
+        track.style.transition = "none";
+        move();
+        updateButtons();
+      } else {
+        next();
+      }
+    }, options.speed);
+  }
+
   nextBtn.addEventListener("click", next);
   prevBtn.addEventListener("click", prev);
 
-
-  let auto = setInterval(next, options.speed);
-  
   box.addEventListener("mouseenter", function () {
-    clearInterval(auto);
+    clearInterval(timer);
   });
 
-  box.addEventListener("mouseleave", function () {
-    clearInterval(auto);
-    auto = setInterval(next, options.speed);
-  });
+  box.addEventListener("mouseleave", startAutoSlide);
 
   window.addEventListener("resize", function () {
-    if (options.visible() !== visibleNow) {
+    let newVisible = Math.min(options.visible(), items.length);
+    if (newVisible !== visibleNow) {
       build();
     } else {
-      track.style.transition = "none";
-      track.style.transform =
-        "translateX(-" + current * (100 / visibleNow) + "%)";
+      move();
     }
   });
 
   build();
+  startAutoSlide();
 }
 
 let photos = [
   "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800",
   "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800",
   "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800",
+  "https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=800"
 ];
-makeSlider({
-  trackId: "carouselTrack",
-  boxId: "carouselBox",
-  prevId: "prevBtn",
-  nextId: "nextBtn",
-  items: photos,
-  speed: 3000,
-  visible: function () {
-    return 2;
-  },
-  makeCard: function (link) {
-    return '<img src="' + link + '" alt="Coffee shop photo">';
-  },
+
+let carouselBoxes = document.querySelectorAll(".carousel-box");
+
+carouselBoxes.forEach(function (box) {
+  makeSlider({
+    box: box,
+    trackSelector: ".carousel-track",
+    viewSelector: ".carousel-view",
+    prevSelector: ".carousel-prev",
+    nextSelector: ".carousel-next",
+    items: photos,
+    speed: 3000,
+    visible: function () {
+      if (window.innerWidth <= 600) return 1;
+      return 1;
+    },
+    makeCard: function (link) {
+      return '<img src="' + link + '" alt="Coffee shop photo">';
+    }
+  });
 });
 
 let galleryPhotos = [
@@ -494,39 +407,29 @@ let reviews = [
 ];
 
 makeSlider({
-  trackId: "reviewTrack",
-  boxId: "reviewBox",
-  prevId: "reviewPrev",
-  nextId: "reviewNext",
+  box: document.getElementById("reviewBox"),
+  trackSelector: ".review-track",
+  viewSelector: ".review-view",
+  prevSelector: "#reviewPrev",
+  nextSelector: "#reviewNext",
   items: reviews,
   speed: 3000,
   visible: function () {
-    let screenWidth = window.innerWidth;
-    if (screenWidth <= 500) {
-      return 1;
-    }
-    if (screenWidth <= 768) {
-      return 2;
-    }
+    if (window.innerWidth <= 500) return 1;
+    if (window.innerWidth <= 768) return 2;
     return 3;
   },
   makeCard: function (item) {
     return (
       '<div class="review-card">' +
       '<div class="review-inner">' +
-      '<div class="review-stars">' +
-      item.stars +
-      "</div>" +
-      '<p>"' +
-      item.text +
-      '"</p>' +
-      "<h3>- " +
-      item.name +
-      "</h3>" +
+      '<div class="review-stars">' + item.stars + "</div>" +
+      '<p>"' + item.text + '"</p>' +
+      "<h3>- " + item.name + "</h3>" +
       "</div>" +
       "</div>"
     );
-  },
+  }
 });
 
 let contactForm = document.getElementById("contactForm");
@@ -538,23 +441,6 @@ contactForm.addEventListener("submit", function (event) {
   successMsg.style.display = "block";
   contactForm.reset();
 });
-
-
-// let faqItems = document.querySelectorAll(".faq-section details");
-
-// faqItems.forEach(function (oneFaq) {
-//   oneFaq.addEventListener("toggle", function () {
-   
-//     if (oneFaq.open) {
-//       faqItems.forEach(function (otherFaq) {
-        
-//         if (otherFaq !== oneFaq) {
-//           otherFaq.open = false;
-//         }
-//       });
-//     }
-//   });
-// });
 
 const faqItems = document.querySelectorAll(".faq-item");
 
@@ -576,3 +462,5 @@ faqItems.forEach(function (item) {
     }
   });
 });
+
+
